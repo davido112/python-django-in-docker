@@ -1,0 +1,21 @@
+version: '3'
+services:
+  python_django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - web
+    ports:
+      - "8080:80"
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./django:/var/django/apps
+
+networks:
+  web:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.44.0.0/24
